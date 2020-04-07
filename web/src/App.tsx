@@ -1,21 +1,19 @@
 import React, { ReactElement } from 'react';
-import styled from 'styled-components';
+import openSocket from 'socket.io-client';
+
 import Map from './components/Map';
 import List from './components/List';
-
-const Wrapper = styled.div`
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: row;
-`;
+import Container from './components/Container';
+import config from './config';
 
 const App: React.FC = (): ReactElement => {
+    const socket = openSocket(config.socketUrl);
+    socket.on('coords', console.log);
     return (
-        <Wrapper>
+        <Container>
             <Map />
             <List />
-        </Wrapper>
+        </Container>
     );
 };
 

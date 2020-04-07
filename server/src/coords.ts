@@ -1,10 +1,4 @@
-import socketIo from 'socket.io';
-import http from 'http';
-import util from 'util';
 import CarPosition from './CarPosition';
-
-const io = socketIo(http);
-const setTimeoutPromise = util.promisify(setTimeout);
 
 const coords: Array<CarPosition> = [
   new CarPosition(1, 54.37598, 18.60835, 'polonez'),
@@ -12,12 +6,10 @@ const coords: Array<CarPosition> = [
   new CarPosition(3, 54.37598, 18.60835, 'uno'),
 ];
 
-export function init() {
-  io.on('connection', (socket) => {
+export function init(io: SocketIO.Server) {
+  io.on('connection', (client) => {
     console.log('connection opened');
 
-    setTimeoutPromise(300).then((c) => {
-      io.emit('coords', coords);
-    });
+    setInterval(() => client.emit('coords', coords), 1000);
   });
 }

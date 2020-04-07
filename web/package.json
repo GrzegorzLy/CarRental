@@ -16,6 +16,7 @@
     "react-dom": "^16.13.1",
     "react-leaflet": "^2.6.3",
     "react-scripts": "3.4.1",
+    "socket.io-client": "^2.3.0",
     "styled-components": "^5.0.1",
     "styled-normalize": "^8.0.7",
     "typescript": "~3.7.2"
@@ -43,6 +44,7 @@
   },
   "devDependencies": {
     "@types/react-leaflet": "^2.5.1",
+    "@types/socket.io-client": "^1.4.32",
     "@types/styled-components": "^5.0.1",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
