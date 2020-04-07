@@ -1,8 +1,13 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Map as LeafletMap, Marker, Popup, TileLayer } from 'react-leaflet';
 import { LatLngTuple } from 'leaflet';
-import useMapPosition from '../hooks/usePosition';
+import { CarPosition } from '../types/CarPosition';
+
+interface Props {
+    coords: Array<CarPosition>;
+    mapPosition: LatLngTuple;
+}
 
 const Wrapper = styled.main`
     height: 100%;
@@ -13,29 +18,19 @@ const Wrapper = styled.main`
     }
 `;
 
-const Map: React.FC = (): ReactElement => {
-    const mapPosition = useMapPosition();
-
-    const pos1: LatLngTuple = [54.38598, 18.61835];
-    const pos2: LatLngTuple = [54.36598, 18.64835];
-
+const Map: React.SFC<Props> = ({ coords, mapPosition }) => {
     return (
         <Wrapper>
-            <LeafletMap id="mapId" center={mapPosition} zoom={13}>
+            <LeafletMap id="mapId" center={mapPosition} zoom={14}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 ></TileLayer>
-                <Marker position={pos2}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </Marker>
-                <Marker position={pos1}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </Marker>
+                {coords.map((c) => (
+                    <Marker position={[c.lat, c.lng]} key={c.id}>
+                        <Popup>{c.brand}</Popup>
+                    </Marker>
+                ))}
             </LeafletMap>
         </Wrapper>
     );
