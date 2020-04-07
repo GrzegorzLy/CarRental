@@ -1,16 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import openSocket from 'socket.io-client';
+
 import * as serviceWorker from './serviceWorker';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import GlobalStyle from './styles/global';
+import config from './config';
+
+const socket = openSocket(config.socketUrl);
 
 ReactDOM.render(
     <React.StrictMode>
         <ThemeProvider theme={theme}>
             <GlobalStyle />
-            <App />
+            <App socket={socket} />
         </ThemeProvider>
     </React.StrictMode>,
     document.getElementById('root'),
