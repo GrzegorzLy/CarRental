@@ -1,18 +1,26 @@
-import React, { ReactElement } from 'react';
-import openSocket from 'socket.io-client';
+import React, { ReactElement, useState } from 'react';
 
 import Map from './components/Map';
 import List from './components/List';
 import Container from './components/Container';
-import config from './config';
+import useMapPosition from './hooks/usePosition';
+import useCoords from './hooks/useCoords';
 
-const App: React.FC = (): ReactElement => {
-    const socket = openSocket(config.socketUrl);
-    socket.on('coords', console.log);
+interface Props {
+    socket: SocketIOClient.Socket;
+}
+
+const App: React.SFC<Props> = ({ socket }): ReactElement => {
+    const [filter, setFilter] = useState('');
+    const mapPosition = useMapPosition(socket);
+    const coords = useCoords(socket);
+    const filteredCoords = coords.filter((c) => (filter ? c.brand.includes(filter) : true));
+    const onFilterChange = (value: string): void => setFilter(value);
+
     return (
         <Container>
-            <Map />
-            <List />
+            <Map coords={filteredCoords} mapPosition={mapPosition} />
+            <List coords={filteredCoords} onFilter={onFilterChange} />
         </Container>
     );
 };
