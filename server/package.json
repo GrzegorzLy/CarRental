@@ -8,7 +8,8 @@
   "scripts": {
     "start-dev": "nodemon --config \"./nodemon.json\"/",
     "test:lint": "eslint --ext .ts ./src",
-    "test:lint:fix": "npm run test:lint -- --fix"
+    "test:lint:fix": "npm run test:lint -- --fix",
+    "start": "tsc && node dist/server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
