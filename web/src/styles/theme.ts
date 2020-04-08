@@ -1,4 +1,4 @@
-import { darken, lighten } from 'polished';
+import { lighten } from 'polished';
 
 const black = '#000';
 const white = '#fff';

@@ -9,21 +9,42 @@ interface Props {
 
 const Wrapper = styled.section`
     height: 100%;
+    position: relative;
     min-width: 20rem;
     background-color: ${({ theme }): string => theme.colors.superLightGrey};
+    @media (max-width: 480px) {
+        height: 50%;
+        overflow-y: scroll;
+        min-width: 100%;
+    }
 `;
 
 const Ul = styled.ul`
-    padding-left: 1rem;
+    padding-left: 0;
+    @media (max-width: 480px) {
+        padding-top: 0;
+        margin-top: 0;
+    }
 `;
 
 const Li = styled.li`
     list-style: none;
-    padding: 1rem;
+    padding: 1rem 0 1rem 1.5rem;
+    &:hover {
+        background-color: ${({ theme }): string => theme.colors.lightGrey};
+    }
 `;
 
 const Header = styled.header`
     padding: 1rem;
+    background-color: ${({ theme }): string => theme.colors.superLightGrey};
+
+    @media (max-width: 480px) {
+        position: sticky;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
 `;
 
 const Input = styled.input`
